@@ -16,7 +16,7 @@ public class AppController {
 		return "test";
 	}
 	
-	@RequestMapping("/list_contact")
+	@RequestMapping("/")
 	public String listContact(Model model) {
 		
 		CtrlRecord business = new CtrlRecord();
