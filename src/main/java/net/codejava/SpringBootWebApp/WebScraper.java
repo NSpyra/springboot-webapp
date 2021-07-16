@@ -14,8 +14,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 public class WebScraper {
+	// This sequence results in csv generation
 	public static void main(String[] args) {
-
+		
 		String filepath = reinitializeFile();
 		Document doc = readWebsite("https://mybank.pl/kursy-walut/");
 		parseContent(doc, filepath);
@@ -23,7 +24,8 @@ public class WebScraper {
 		System.out.print(currDate);
 
 	}
-
+	
+	// That is a web scraper
 	public static Document readWebsite(String website) {
 
 		Document doc = null;
@@ -40,6 +42,7 @@ public class WebScraper {
 
 	}
 
+	// this part of code walks through the content of the html and extracts the necessary data
 	public static void parseContent(Document siteContent, String path) {
 
 		boolean dataSaveInProgress = false;
@@ -80,7 +83,8 @@ public class WebScraper {
 		}
 
 	}
-
+	
+	// This portion of code adds (appends) pair of values (mnemonic - value) to the file
 	public static void saveRecord(String mnemonic, String value, String filepath) {
 
 		try {
@@ -102,6 +106,7 @@ public class WebScraper {
 
 	}
 
+	// This method finds/creates the directory and reinitializes (creates a new) csv file
 	public static String reinitializeFile() {
 
 		String constPrefix = "/csv_file";

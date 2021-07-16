@@ -10,8 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CtrlRecord {
 
+public class CtrlRecord {
+	
+	// This function reads the file and transform it to the list of Strings
 	public List<Record> getRecord() {
 		List<Record> listRecord = new ArrayList<>();
 		String path = findFile();
@@ -20,6 +22,7 @@ public class CtrlRecord {
 		return listRecord;
 	}
 
+	// This function finds an appropriate file and returns it directory
 	public String findFile() {
 
 		File csvFile = new File(System.getProperty("user.dir") + "/csv_file/file.csv");
@@ -31,17 +34,21 @@ public class CtrlRecord {
 		return csvFile.getAbsolutePath();
 	}
 
+	// This function is the reader itself
 	public List<Record> readFileAndAppendList(String directory, List<Record> list) {
 		String file = directory;
 		BufferedReader reader = null;
 		String line = "";
+		
+		// Add PLN
+		list.add(new Record("PLN", "1.000"));
 
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			while ((line = reader.readLine()) != null) {
 				String[] row = line.split(",");
 				list.add(new Record(row[0], row[1]));
-
+				
 			}
 
 		} catch (Exception e) {
@@ -57,6 +64,8 @@ public class CtrlRecord {
 				e.printStackTrace();
 			}
 		}
+
+		
 		return list;
 	}
 }
