@@ -8,7 +8,7 @@
 <title>TAW: Norbert Spyra - zaliczenie projektu</title>
 </head>
 
-<body style="background-color:rgba(0, 0, 0, 0.1);">
+<body style="background-color: rgba(0, 0, 0, 0.1);">
 
 	<i>Data ostatniej aktualizacji :</i>
 	<i><%=new java.util.Date()%></i>
@@ -26,11 +26,18 @@
 		<h2>Kalkulator walut</h2>
 
 		<h3>Rezultat obliczen:</h3>
-		<h3>${value} ${course1} = ${result} ${course2}</h3>
+		<i style="color: red">${info1}</i>
+		<p></p>
+		<i style="color: red">${info2}</i>
+
+		<p></p>
+
+		<p></p>
+		<h3>${value} ${course1}= ${result} ${course2}</h3>
 		<p>
 			<i>Prosze nacisnac 'Wstecz', aby powrocic do strony glownej</i>
 		</p>
-		
+
 	</div>
 </body>
 

@@ -18,7 +18,7 @@ public class WebScraper {
 	public static void main(String[] args) {
 		
 		String filepath = reinitializeFile();
-		Document doc = readWebsite("https://mybank.pl/kursy-walut/");
+		Document doc = readWebsite("https://mybank.pl/kursy-walut/kupno-sprzedaz/");
 		parseContent(doc, filepath);
 		LocalDate currDate = LocalDate.now();
 		System.out.print(currDate);
@@ -46,35 +46,50 @@ public class WebScraper {
 	public static void parseContent(Document siteContent, String path) {
 
 		boolean dataSaveInProgress = false;
-		boolean getNextValue = false;
+		boolean getBuyValue = false;
+		boolean getSellValue = false;
+		boolean buyReady = false;
+		boolean sellReady = false;
 
 		String mnemonic = "";
-		String value = "";
-
+		String valueBuy = "";
+		String valueSell = "";
+		
 		String filepath = reinitializeFile();
 
 		for (Element row : siteContent.select("table.tab_kursy tr")) {
 
 			for (Element td : row.select("td")) {
 
-				if (getNextValue) {
-					value = td.text().replace(',', '.');
+				if (getBuyValue) {
+					getBuyValue = false;
+					valueBuy = td.text().replace(',', '.');
+					buyReady = true;
+					continue;
+
+				}
+				if (getSellValue) {
+					getSellValue = false;
+					valueSell = td.text().replace(',', '.');
+					sellReady = true;
+					continue;
 				}
 
-				if (td.text().contains("1 ") && !td.text().contains("1 zł")) {
+				if (td.text().contains("1 ") || td.text().contains("100 ")) {
 					dataSaveInProgress = true;
 
 					mnemonic = td.text().replace("1 ", "");
-
-					getNextValue = true;
+					getBuyValue = true;
+					getSellValue = true;
 					continue;
 				}
 				
 
-				if (getNextValue && dataSaveInProgress) {
+				if (buyReady && sellReady && dataSaveInProgress) {
 					dataSaveInProgress = false;
-					getNextValue = false;
-					saveRecord(mnemonic, value, filepath);
+					buyReady = false;
+					sellReady = false;
+					saveRecord(mnemonic, valueBuy, valueSell, filepath);
 
 				}
 
@@ -85,14 +100,14 @@ public class WebScraper {
 	}
 	
 	// This portion of code adds (appends) pair of values (mnemonic - value) to the file
-	public static void saveRecord(String mnemonic, String value, String filepath) {
+	public static void saveRecord(String mnemonic, String valueBuy, String valueSell, String filepath) {
 
 		try {
 			FileWriter fw = new FileWriter(filepath, true); // append data
 			BufferedWriter bw = new BufferedWriter(fw); //
 			PrintWriter pw = new PrintWriter(bw);
 
-			pw.println(mnemonic + ',' + value);
+			pw.println(mnemonic + ',' + valueBuy + "," + valueSell);
 
 			pw.flush();
 

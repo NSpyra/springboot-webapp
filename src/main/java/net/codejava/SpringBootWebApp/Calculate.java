@@ -22,6 +22,9 @@ public class Calculate {
 		this.currency2 = currency2;
 	}
 	public String getValue1() {
+		if (value1.contains(",")) {
+			value1.replace(',', '.');
+		}
 		return value1;
 	}
 	public void setValue1(String value1) {

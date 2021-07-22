@@ -26,12 +26,14 @@
 		<table border="1" cellpadding="10">
 			<tr>
 				<th>Mnemonik</th>
-				<th>Kurs</th>
+				<th>Kurs kupna</th>
+				<th>Kurs sprzedazy</th>
 			</tr>
 			<c:forEach items="${recordValues}" var="recordValue">
 				<tr>
 					<td>${recordValue.name}</td>
-					<td>${recordValue.value}</td>
+					<td>${recordValue.valueBuy}</td>
+					<td>${recordValue.valueSell}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -60,6 +62,10 @@
 					</c:forEach>
 				</select>
 			</p>
+			<p>
+
+			</p>
+
 			<p>
 				<button type="submit">Przelicz!</button>
 			</p>

@@ -41,13 +41,13 @@ public class CtrlRecord {
 		String line = "";
 		
 		// Add PLN
-		list.add(new Record("PLN", "1.000"));
+		list.add(new Record("PLN", "1.0000", "1.000"));
 
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			while ((line = reader.readLine()) != null) {
 				String[] row = line.split(",");
-				list.add(new Record(row[0], row[1]));
+				list.add(new Record(row[0], row[1], row[2]));
 				
 			}
 
